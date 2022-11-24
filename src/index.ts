@@ -29,7 +29,7 @@ export default function loop() {
   const author = danger.github.pr.user.login
 
   // @ts-ignore
-  const hasPackageJsonChanged = modifiedFiles.contains("package.json")
+  const hasPackageJsonChanged = modifiedFiles.includes("package.json")
 
   if (newFiles.length > 0 && !hasPackageJsonChanged) {
     warn(`:exclamation: New files have been added, but the version has not been updated`)
