@@ -43,8 +43,8 @@ export default function loop() {
 
   if (changes > maximumChanges) {
     warn(
-      ":exclamation: This is a big Pull Request, we found **${changes}** changes \n" +
-      "> **Warning** \n" +
+      `:exclamation: This is a big Pull Request, we found **${changes}** changes` +
+      "\n > **Warning** \n" +
       "> Pull Request size seems relatively large. We strongly advise that you break down this Pull Request into smaller ones to ease the review and merging process.",
     )
   }
