@@ -1,5 +1,7 @@
 import {DangerDSLType} from "danger/distribution/dsl/DangerDSL"
-import * as path from "path"
+import commitlint from 'danger-plugin-conventional-commitlint'
+import * as config from '../commitlint.config'
+
 declare var danger: DangerDSLType
 export declare function message(message: string): void
 export declare function warn(message: string): void
@@ -9,7 +11,7 @@ export declare function markdown(message: string): void
 /**
  * Danger Rules for Loop node projects
  */
-export default function loop() {
+export default async function loop() {
   const newFiles = danger.git.created_files
   const deletedFiles = danger.git.deleted_files.length
   const modifiedFiles = danger.git.modified_files
@@ -22,11 +24,13 @@ export default function loop() {
   const maximumChanges = 640
 
   const testChanges = modifiedFiles.filter((filepath: string) =>
-    filepath.includes("test"),
+    filepath.includes(".spec."),
   )
   const hasAppChanges = modifiedFiles.length > 0
   const hasTestChanges = testChanges.length > 0
   const author = danger.github.pr.user.login
+  
+  await commitlint(config.rules)
 
   // @ts-ignore
   const hasPackageJsonChanged = modifiedFiles.includes("package.json")
@@ -60,26 +64,8 @@ export default function loop() {
     )
   }
 
-// Check that every file touched has a corresponding test file
-  const correspondingTestsForAppFiles = newFiles.map((f) => {
-    const newPath = path.dirname(f)
-    const name = path.basename(f).replace(".ts", ".test.ts")
-    return `${newPath}/${name}`
-  })
-
-  const testFilesThatDontExist = correspondingTestsForAppFiles.filter(
-    (f) => danger.github.utils.fileContents(f) && f.includes("dart"),
-  )
-  if (testFilesThatDontExist.length > 0) {
-    const output = `Missing Test Files:
-    ${testFilesThatDontExist.map((f) => `  - \`${f}\``).join("\n")}
-    Please ensure new files have corresponding tests".
-  `
-    warn(output)
-  }
-
   markdown(
-    `All new code should be in line with our [Coding Guidelines](http://dev-docs-bc10d.web.app)
+    `All new code should be in line with our [Coding Guidelines](https://cowabunga-tasks.atlassian.net/wiki/x/DgCvAQ) [Technical Checklist](https://cowabunga-tasks.atlassian.net/wiki/x/DwDNCQ)
    * Keep files small, ideally under 160 LOC
    * Ensure new code is covered by tests
    * Keep all function pure, avoid side-effects
@@ -88,7 +74,7 @@ export default function loop() {
    * K.I.S.S
    * Avoid using global state, state should be local unless the data is required elsewhere, and then should be in it's own state reducer.
    * Ensure business and UI logic are kept as separate as possible
-   * Ensure new features are protected by a Feature Flag
+   * Ensure new features are protected by a [Feature Flag](https://cowabunga-tasks.atlassian.net/wiki/x/AgC4)
   `,
   )
   const assignedReviewers = reviewers.reduce(
