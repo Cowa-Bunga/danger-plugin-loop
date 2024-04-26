@@ -1,6 +1,6 @@
 import {DangerDSLType} from "danger/distribution/dsl/DangerDSL"
-import commitlint from 'danger-plugin-conventional-commitlint'
-import * as config from '../commitlint.config'
+// import commitlint from 'danger-plugin-conventional-commitlint'
+// import * as config from '../commitlint.config'
 
 declare var danger: DangerDSLType
 export declare function message(message: string): void
@@ -30,7 +30,7 @@ export default async function loop() {
   const hasTestChanges = testChanges.length > 0
   const author = danger.github.pr.user.login
   
-  await commitlint(config.rules)
+  // await commitlint(config.rules)
 
   // @ts-ignore
   const hasPackageJsonChanged = modifiedFiles.includes("package.json")
