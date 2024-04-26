@@ -18,7 +18,7 @@ describe("loop()", () => {
         global.danger = {
             github: { pr: { title: "My Test Title" } },
         };
-        index_1.default();
+        (0, index_1.default)();
         expect(global.message).toHaveBeenCalledWith("PR Title: My Test Title");
     });
 });

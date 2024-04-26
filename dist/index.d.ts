@@ -5,4 +5,4 @@ export declare function markdown(message: string): void;
 /**
  * Danger Rules for Loop node projects
  */
-export default function loop(): void;
+export default function loop(): Promise<void>;
