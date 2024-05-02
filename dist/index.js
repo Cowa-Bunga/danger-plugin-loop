@@ -28,10 +28,10 @@ function loop() {
         const author = danger.github.pr.user.login;
         // await commitlint(config.rules)
         // @ts-ignore
-        const hasPackageJsonChanged = modifiedFiles.includes("package.json");
-        if (newFiles.length > 0 && !hasPackageJsonChanged) {
-            warn(`:exclamation: New files have been added, but the version has not been updated`);
-        }
+        // const hasPackageJsonChanged = modifiedFiles.includes("package.json")
+        // if (newFiles.length > 0 && !hasPackageJsonChanged) {
+        //   warn(`:exclamation: New files have been added, but the version has not been updated`)
+        // }
         message(`:exclamation: If this is not just a refactor, remember to update the version`);
         message(`The PR made changes on **${modifiedFiles.length}** files`);
         message(`The PR deleted **${deletedFiles}** files`);
@@ -46,9 +46,11 @@ function loop() {
             fail("Please ask someone to review this PR!");
         }
         // Warn if there are library changes, but not tests
-        if (hasAppChanges && !hasTestChanges) {
-            warn("There are library changes, but not tests. That's OK as long as you're refactoring existing code");
-        }
+        //   if (hasAppChanges && !hasTestChanges) {
+        //     warn(
+        //       "There are library changes, but not tests. That's OK as long as you're refactoring existing code",
+        //     )
+        //   }
         markdown(`All new code should be in line with our [Coding Guidelines](https://cowabunga-tasks.atlassian.net/wiki/x/DgCvAQ) [Technical Checklist](https://cowabunga-tasks.atlassian.net/wiki/x/DwDNCQ)
    * Keep files small, ideally under 160 LOC
    * Ensure new code is covered by tests
@@ -62,7 +64,7 @@ function loop() {
   `);
         const assignedReviewers = reviewers.reduce((acc, reviewer) => `${acc} @${reviewer.login}`, "");
         markdown(`Please review this PR: ${assignedReviewers}`);
-        markdown(`@${author} Thanks for the PR!`);
+        // markdown(`@${author} Thanks for the PR!`)
     });
 }
 exports.default = loop;
