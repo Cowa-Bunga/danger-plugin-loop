@@ -51,6 +51,9 @@ function loop() {
         //       "There are library changes, but not tests. That's OK as long as you're refactoring existing code",
         //     )
         //   }
+        markdown(`*Scopes and Permissions*
+    Adding a scope or permission, make sure to update the [Permissions](https://cowabunga-tasks.atlassian.net/wiki/x/AQBMJ) page.
+  `);
         markdown(`All new code should be in line with our [Coding Guidelines](https://cowabunga-tasks.atlassian.net/wiki/x/DgCvAQ) [Technical Checklist](https://cowabunga-tasks.atlassian.net/wiki/x/DwDNCQ)
    * Keep files small, ideally under 160 LOC
    * Ensure new code is covered by tests

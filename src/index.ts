@@ -65,6 +65,12 @@ export default async function loop() {
 //   }
 
   markdown(
+    `*Scopes and Permissions*
+    Adding a scope or permission, make sure to update the [Permissions](https://cowabunga-tasks.atlassian.net/wiki/x/AQBMJ) page.
+  `,
+  )
+
+  markdown(
     `All new code should be in line with our [Coding Guidelines](https://cowabunga-tasks.atlassian.net/wiki/x/DgCvAQ) [Technical Checklist](https://cowabunga-tasks.atlassian.net/wiki/x/DwDNCQ)
    * Keep files small, ideally under 160 LOC
    * Ensure new code is covered by tests
